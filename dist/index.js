@@ -1,0 +1,40 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GmailTokenHelper = void 0;
+const googleapis_1 = require("googleapis");
+class GmailTokenHelper {
+    constructor(options) {
+        this.oAuth2Client = new googleapis_1.google.auth.OAuth2(options.clientId, options.clientSecret, options.redirectUri);
+        this.onTokenSave = options.onTokenSave;
+    }
+    getAuthUrl() {
+        return this.oAuth2Client.generateAuthUrl({
+            access_type: "offline",
+            scope: ["https://www.googleapis.com/auth/gmail.send"],
+            prompt: "consent"
+        });
+    }
+    async handleCallback(code) {
+        const { tokens } = await this.oAuth2Client.getToken(code);
+        if (this.onTokenSave) {
+            await this.onTokenSave(tokens);
+        }
+        return tokens;
+    }
+    expressHandler() {
+        return {
+            auth: (req, res) => res.json({ url: this.getAuthUrl() }),
+            callback: async (req, res) => {
+                try {
+                    const tokens = await this.handleCallback(req.query.code);
+                    res.json({ message: "Success", tokens });
+                }
+                catch (err) {
+                    res.status(500).json({ error: err.message });
+                }
+            }
+        };
+    }
+}
+exports.GmailTokenHelper = GmailTokenHelper;
+//# sourceMappingURL=index.js.map

@@ -1,0 +1,39 @@
+{
+  "name": "gmail-token-helper",
+  "version": "1.0.0",
+  "description": "A simple helper to get and manage Gmail OAuth2 tokens for applications.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kagancetin/gmail-token-helper.git"
+  },
+  "keywords": [
+    "gmail",
+    "oauth2",
+    "token",
+    "nodemail-helper",
+    "google-auth"
+  ],
+  "author": "Ismet Cetin",
+  "license": "ISC",
+  "dependencies": {
+    "googleapis": "^171.4.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.x.x",
+    "jest": "^30.3.0",
+    "ts-jest": "^29.4.9",
+    "typescript": "^5.x.x"
+  }
+}
