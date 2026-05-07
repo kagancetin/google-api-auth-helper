@@ -12,7 +12,7 @@ A lightweight, framework-agnostic OAuth2 helper to easily obtain and manage Gmai
 
 ```bash
 npm install gmail-token-helper
-
+```
 
 ## 🗝️ Google OAuth2 Configuration Guide
 
@@ -52,10 +52,6 @@ Create a `.env` file in your root directory and add the credentials:
 CLIENT_ID=your_client_id_here
 CLIENT_SECRET=your_client_secret_here
 REDIRECT_URI=http://localhost:5000/callback
-
-### Pro-Tip for your README:
-If you are planning to distribute this as an NPM package or a tool for others, you might want to add a small **Security Note** at the bottom:
+```
 
 > **⚠️ Security Note:** Never commit your `.env` file or actual `CLIENT_SECRET` to GitHub. Ensure `.env` is added to your `.gitignore` file.
-
-How does this look for your project? Need any specific technical sections added?
