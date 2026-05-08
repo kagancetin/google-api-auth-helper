@@ -14,6 +14,6 @@
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "gmail-token-helper": "file:../.."
+    "@kagancetin/google-api-auth-helper": "file:../.."
   }
 }

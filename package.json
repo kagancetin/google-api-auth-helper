@@ -1,7 +1,7 @@
 {
-  "name": "gmail-token-helper",
+  "name": "@kagancetin/google-api-auth-helper",
   "version": "1.0.0",
-  "description": "A simple helper to get and manage Gmail OAuth2 tokens for applications.",
+  "description": "A simple helper to get and manage Google API OAuth2 tokens for applications.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -14,13 +14,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kagancetin/gmail-token-helper.git"
+    "url": "git+https://github.com/kagancetin/google-api-auth-helper.git"
   },
   "keywords": [
-    "gmail",
+    "google-api",
     "oauth2",
     "token",
-    "nodemail-helper",
+    "google-api",
     "google-auth"
   ],
   "author": "Ismet Cetin",

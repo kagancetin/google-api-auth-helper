@@ -1,4 +1,4 @@
-import { GmailTokenHelper } from 'gmail-token-helper';
+import { GmailTokenHelper } from '@kagancetin/google-api-auth-helper';
 import { NextResponse } from 'next/server';
 
 const helper = new GmailTokenHelper({

@@ -1,7 +1,7 @@
 // examples/express-app/index.js
 require('dotenv').config();
 const express = require('express');
-const { GmailTokenHelper } = require('gmail-token-helper');
+const { GmailTokenHelper } = require('@kagancetin/google-api-auth-helper');
 const PORT = 5001;
 const app = express();
 

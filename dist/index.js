@@ -5,12 +5,13 @@ const googleapis_1 = require("googleapis");
 class GmailTokenHelper {
     constructor(options) {
         this.oAuth2Client = new googleapis_1.google.auth.OAuth2(options.clientId, options.clientSecret, options.redirectUri);
+        this.scopes = options.scopes || ['https://www.googleapis.com/auth/gmail.send'];
         this.onTokenSave = options.onTokenSave;
     }
     getAuthUrl() {
         return this.oAuth2Client.generateAuthUrl({
             access_type: "offline",
-            scope: ["https://www.googleapis.com/auth/gmail.send"],
+            scope: this.scopes,
             prompt: "consent"
         });
     }

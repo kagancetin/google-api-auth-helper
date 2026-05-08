@@ -1,22 +1,87 @@
-# gmail-token-helper
+# @kagancetin/google-api-auth-helper
 
-A lightweight, framework-agnostic OAuth2 helper to easily obtain and manage Gmail tokens. Perfect for server-side applications running on environments where SMTP ports are blocked (like DigitalOcean, AWS, etc.).
+A lightweight, framework-agnostic utility designed to simplify the Google OAuth2 flow. It helps you generate authorization URLs and exchange authorization codes for Access Tokens and Refresh Tokens with minimal boilerplate.
 
-## Features
-- 🚀 **Framework Agnostic**: Works with Express, Next.js, Fastify, or Vanilla Node.js.
-- 🔐 **OAuth2 Simplified**: Handles the "Code to Token" exchange seamlessly.
-- 💾 **Flexible Storage**: Use the `onTokenSave` callback to save tokens to MongoDB, Redis, or a local file.
-- 🔄 **Auto-refresh Ready**: Designed to work with `access_type: offline` to ensure you get a `refresh_token`.
+## Why This Package?
+Managing OAuth2 flows manually can be tedious. This helper is built to solve three main problems:
+
+- Automate Token Exchange: Convert authorization codes into tokens without writing complex googleapis logic.
+- Persistent Storage: Use the onTokenSave callback to instantly save tokens to your database (MongoDB, PostgreSQL, Redis, etc.).
+- SMTP Alternative: Ideal for applications on platforms like DigitalOcean or AWS where standard SMTP ports are blocked. Use this to get tokens and send emails via the Gmail API instead.
 
 ## Installation
 
 ```bash
-npm install gmail-token-helper
+npm install @kagancetin/google-api-auth-helper
 ```
 
-## 🗝️ Google OAuth2 Configuration Guide
+## Usage Examples
 
-To use this application with the Gmail API, you need to obtain credentials from the Google Cloud Console. Follow these steps:
+### 1. Express.js Implementation
+```js
+const { GoogleApiAuthHelper } = require('@kagancetin/google-api-auth-helper');
+const express = require('express');
+
+const helper = new GoogleApiAuthHelper({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  redirectUri: 'http://localhost:3000/callback',
+  onTokenSave: async (tokens) => {
+    // Logic to save tokens to your database (e.g., MongoDB, PostgreSQL)
+    console.log('Received Tokens:', tokens);
+  }
+});
+
+const app = express();
+const handlers = helper.expressHandler();
+
+// Routes
+app.get('/auth', handlers.auth);
+app.get('/callback', handlers.callback);
+
+app.listen(3000, () => console.log('Server running on http://localhost:3000'));
+```
+
+### 2. Next.js (App Router) Implementation
+
+```ts
+// app/api/auth/route.ts
+import { GoogleApiAuthHelper } from '@kagancetin/google-api-auth-helper';
+import { NextResponse } from 'next/server';
+
+const helper = new GoogleApiAuthHelper({ /* your config */ });
+
+export async function GET() {
+  const url = helper.getAuthUrl();
+  return NextResponse.json({ url });
+}
+
+// app/api/callback/route.ts
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const code = searchParams.get('code');
+  
+  if (code) {
+    const tokens = await helper.handleCallback(code);
+    return NextResponse.json({ success: true, tokens });
+  }
+  return NextResponse.json({ error: 'Authorization code not found' }, { status: 400 });
+}
+```
+
+## Configuration Options
+
+| Option         |  Type    |                Description                                       |
+|----------------|:--------:|------------------------------------------------------------------|
+| clientId       | string   |   Required. Your Google Client ID from Cloud Console.            |
+| clientSecret   | string   |   Required. Your Google Client Secret from Cloud Console.        |
+| redirectUri    | string   |   Required. Must match your Google Console configuration.        |
+| scopes         | string[] |   (Optional) Array of scopes. Defaults to gmail.send.            |
+| onTokenSave    | Function |   (Optional) Async callback triggered when tokens are received.  |
+
+## 🗝️ Google Cloud Setup (2026 Update)
+
+To get your CLIENT_ID and CLIENT_SECRET, follow the updated workflow in the Google Cloud Console:
 
 ### 1. Create a Google Cloud Project
 1. Go to the [Google Cloud Console](https://console.cloud.google.com/).

@@ -7,6 +7,7 @@ export interface GmailAuthOptions {
 }
 export declare class GmailTokenHelper {
     private oAuth2Client;
+    private scopes;
     private onTokenSave?;
     constructor(options: GmailAuthOptions);
     getAuthUrl(): string;
