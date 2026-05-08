@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GmailTokenHelper = void 0;
+exports.googleApiAuthHelper = void 0;
 const googleapis_1 = require("googleapis");
-class GmailTokenHelper {
+class googleApiAuthHelper {
     constructor(options) {
         this.oAuth2Client = new googleapis_1.google.auth.OAuth2(options.clientId, options.clientSecret, options.redirectUri);
         this.scopes = options.scopes || ['https://www.googleapis.com/auth/gmail.send'];
@@ -37,5 +37,5 @@ class GmailTokenHelper {
         };
     }
 }
-exports.GmailTokenHelper = GmailTokenHelper;
+exports.googleApiAuthHelper = googleApiAuthHelper;
 //# sourceMappingURL=index.js.map

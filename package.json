@@ -1,6 +1,6 @@
 {
   "name": "@kagancetin/google-api-auth-helper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A simple helper to get and manage Google API OAuth2 tokens for applications.",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -17,10 +17,12 @@
     "url": "git+https://github.com/kagancetin/google-api-auth-helper.git"
   },
   "keywords": [
-    "google-api",
+    "google",
     "oauth2",
     "token",
     "google-api",
+    "access-token",
+    "refresh-token",
     "google-auth"
   ],
   "author": "Ismet Cetin",

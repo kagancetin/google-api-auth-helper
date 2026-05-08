@@ -76,47 +76,32 @@ export async function GET(request: Request) {
 | clientId       | string   |   Required. Your Google Client ID from Cloud Console.            |
 | clientSecret   | string   |   Required. Your Google Client Secret from Cloud Console.        |
 | redirectUri    | string   |   Required. Must match your Google Console configuration.        |
-| scopes         | string[] |   (Optional) Array of scopes. Defaults to gmail.send.            |
+| scopes         | string[] |   (Optional) Array of scopes.           |
 | onTokenSave    | Function |   (Optional) Async callback triggered when tokens are received.  |
 
 ## 🗝️ Google Cloud Setup (2026 Update)
 
 To get your CLIENT_ID and CLIENT_SECRET, follow the updated workflow in the Google Cloud Console:
 
-### 1. Create a Google Cloud Project
-1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
-2. Click on the project dropdown and select **"New Project"**.
-3. Name your project (e.g., `gmail-token-helper`) and click **Create**.
+### 1. Project: Create a project at Google Cloud Console.
 
-### 2. Enable Gmail API
-1. Navigate to **APIs & Services > Library**.
-2. Search for **"Gmail API"**.
-3. Click on it and select **Enable**.
+### 2. Library: Search for and Enable the specific API you need (e.g., Gmail API, Google Drive API).
 
-### 3. Configure OAuth Consent Screen
-1. Go to **APIs & Services > Google Auth Platform** (or OAuth consent screen).
-2. Set **User Type** to **External**.
-3. **Branding:** Fill in the App Name and Support Email.
-4. **Audience:** Add your email address under **Test Users** (This is required while the app is in 'Testing' mode).
-5. **Data Access (Scopes):** Add the following scope for Gmail access:
-   - `https://www.googleapis.com/auth/gmail.readonly`
+### 3. Google Auth Platform (OAuth Consent):
+1. Configure your internal/external user type.
+2. Important (2026 UI): Ensure you add your email to Test Users while in Testing mode.
+3. Add required Scopes (e.g., .../auth/gmail.send).
 
-### 4. Create Credentials
-1. Navigate to the **Clients** (or Credentials) tab.
-2. Click **Create Client** and select **OAuth client ID**.
-3. Choose **Application type** (e.g., *Web Application* or *Desktop App*).
-4. If Web: Add your **Authorized Redirect URIs** (e.g., `http://localhost:5000/callback`).
-5. Click **Create** to receive your:
-   - `CLIENT_ID`
-   - `CLIENT_SECRET`
+### 4. Clients (Credentials):
+1. Create an OAuth client ID.
+2. Add your Authorized Redirect URIs (Must match your redirectUri config exactly).
 
-### 5. Environment Setup
-Create a `.env` file in your root directory and add the credentials:
+`Tip`: In the 2026 Google Cloud UI, the "OAuth Consent Screen" is often found under the "Google Auth Platform" tab.
 
 ```env
 CLIENT_ID=your_client_id_here
 CLIENT_SECRET=your_client_secret_here
-REDIRECT_URI=http://localhost:5000/callback
+REDIRECT_URI=http://localhost:3000/callback
 ```
 
 > **⚠️ Security Note:** Never commit your `.env` file or actual `CLIENT_SECRET` to GitHub. Ensure `.env` is added to your `.gitignore` file.

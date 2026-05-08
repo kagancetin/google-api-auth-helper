@@ -1,10 +1,10 @@
-import { GmailTokenHelper } from '@kagancetin/google-api-auth-helper';
+import { googleApiAuthHelper } from '@kagancetin/google-api-auth-helper';
 import { NextResponse } from 'next/server';
 
-const helper = new GmailTokenHelper({
-  clientId: process.env.GMAIL_CLIENT_ID!,
-  clientSecret: process.env.GMAIL_CLIENT_SECRET!,
-  redirectUri: process.env.GMAIL_REDIRECT_URI!,
+const helper = new googleApiAuthHelper({
+  clientId: process.env.GOOGLEAPI_CLIENT_ID!,
+  clientSecret: process.env.GOOGLEAPI_CLIENT_SECRET!,
+  redirectUri: process.env.GOOGLEAPI_REDIRECT_URI!,
   onTokenSave: async (tokens) => {
     console.log('--- NEXT.JS CALLBACK ---');
     console.log('Tokens:', tokens);

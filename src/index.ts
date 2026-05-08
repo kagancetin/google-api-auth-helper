@@ -1,26 +1,26 @@
 import { Console } from 'console';
 import { google } from 'googleapis';
 
-export interface GmailAuthOptions {
+export interface GoogleApiAuthOptions {
   clientId: string;
   clientSecret: string;
   redirectUri: string;
-  scopes?: string[];
+  scopes: string[];
   onTokenSave?: (tokens: any) => Promise<void> | void;
 }
 
-export class GmailTokenHelper {
+export class googleApiAuthHelper {
   private oAuth2Client: any;
   private scopes: string[];
   private onTokenSave?: (tokens: any) => Promise<void> | void;
 
-  constructor(options: GmailAuthOptions) {
+  constructor(options: GoogleApiAuthOptions) {
     this.oAuth2Client = new google.auth.OAuth2(
       options.clientId,
       options.clientSecret,
       options.redirectUri,      
     );
-    this.scopes = options.scopes || ['https://www.googleapis.com/auth/gmail.send'];
+    this.scopes = options.scopes;
     this.onTokenSave = options.onTokenSave;
   }
   
@@ -39,6 +39,7 @@ export class GmailTokenHelper {
     }
     return tokens;
   }
+
 
   public expressHandler() {
     return {

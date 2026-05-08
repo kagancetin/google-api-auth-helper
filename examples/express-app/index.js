@@ -1,15 +1,15 @@
 // examples/express-app/index.js
 require('dotenv').config();
 const express = require('express');
-const { GmailTokenHelper } = require('@kagancetin/google-api-auth-helper');
+const { googleApiAuthHelper } = require('@kagancetin/google-api-auth-helper');
 const PORT = 5001;
 const app = express();
 
 // Initialize the helper
-const helper = new GmailTokenHelper({
-  clientId: process.env.GMAIL_CLIENT_ID,
-  clientSecret: process.env.GMAIL_CLIENT_SECRET,
-  redirectUri: process.env.GMAIL_REDIRECT_URI || `http://localhost:${PORT}/oauth2callback`,
+const helper = new googleApiAuthHelper({
+  clientId: process.env.GOOGLEAPI_CLIENT_ID,
+  clientSecret: process.env.GOOGLEAPI_CLIENT_SECRET,
+  redirectUri: process.env.GOOGLEAPI_REDIRECT_URI || `http://localhost:${PORT}/oauth2callback`,
   onTokenSave: async (tokens) => {
     console.log('--- STORAGE CALLBACK TRIGGERED ---');
     console.log('Save these to your DB:', JSON.stringify(tokens, null, 2));
@@ -26,7 +26,7 @@ app.get('/oauth2callback', handlers.callback);
 // Simple landing page with a button
 app.get('/', (req, res) => {
   res.send(`
-    <h1>Gmail Token Helper Test</h1>
+    <h1>GOOGLE API Token Helper Test</h1>
     <button onclick="window.location.href='/auth/google'">Get New Token</button>
   `);
 });
