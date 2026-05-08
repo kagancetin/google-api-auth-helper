@@ -19,10 +19,10 @@ npm install @kagancetin/google-api-auth-helper
 
 ### 1. Express.js Implementation
 ```js
-const { GoogleApiAuthHelper } = require('@kagancetin/google-api-auth-helper');
+const { googleApiAuthHelper } = require('@kagancetin/google-api-auth-helper');
 const express = require('express');
 
-const helper = new GoogleApiAuthHelper({
+const helper = new googleApiAuthHelper({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
   redirectUri: 'http://localhost:3000/callback',
@@ -46,10 +46,10 @@ app.listen(3000, () => console.log('Server running on http://localhost:3000'));
 
 ```ts
 // app/api/auth/route.ts
-import { GoogleApiAuthHelper } from '@kagancetin/google-api-auth-helper';
+import { googleApiAuthHelper } from '@kagancetin/google-api-auth-helper';
 import { NextResponse } from 'next/server';
 
-const helper = new GoogleApiAuthHelper({ /* your config */ });
+const helper = new googleApiAuthHelper({ /* your config */ });
 
 export async function GET() {
   const url = helper.getAuthUrl();
