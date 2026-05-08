@@ -5,7 +5,7 @@ const googleapis_1 = require("googleapis");
 class googleApiAuthHelper {
     constructor(options) {
         this.oAuth2Client = new googleapis_1.google.auth.OAuth2(options.clientId, options.clientSecret, options.redirectUri);
-        this.scopes = options.scopes || ['https://www.googleapis.com/auth/gmail.send'];
+        this.scopes = options.scopes;
         this.onTokenSave = options.onTokenSave;
     }
     getAuthUrl() {

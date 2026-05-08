@@ -2,7 +2,7 @@ export interface GoogleApiAuthOptions {
     clientId: string;
     clientSecret: string;
     redirectUri: string;
-    scopes?: string[];
+    scopes: string[];
     onTokenSave?: (tokens: any) => Promise<void> | void;
 }
 export declare class googleApiAuthHelper {
